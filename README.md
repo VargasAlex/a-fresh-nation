@@ -14,7 +14,7 @@ This website uses the USDA National Farmers Market Directory API to retrieve a m
 ![](Wireframes/a-fresh-nation-individual-markets.png)
 
 ## Technologies used
--react
--react-simple-maps
--USDA farmer's market API
+### -react
+### -react-simple-maps
+### -USDA farmer's market API (https://search.ams.usda.gov/farmersmarkets/v1/svcdesc.html)
 
