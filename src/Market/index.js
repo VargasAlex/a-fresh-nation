@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-
+import "./style.css"
+import { Button } from 'react-bootstrap';
 
 class Market extends Component {
   constructor(props) {
@@ -31,13 +32,15 @@ class Market extends Component {
   render () {
     return (
       <div className="Market">
-        <h1>A Fresh Nation</h1>
+        <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
         <form onChange={evt => this.onFormChange(evt)}>
-          <input name="zip" value={this.state.zip} />
-          <button type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</button>
+          <div className='form-inline'>
+            <input className="form-control input-small" name="zip" value={this.state.zip} />
+            <Button bsStyle='primary' bsSize="medium" type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</Button>
+          </div>
           {this.state.results.map(result => {
             return (
-              <p>{result.marketname.substring(3)}</p>
+              <p key={result.id}>{result.marketname.substring(4)}</p>
             )
           })}
         </form>
