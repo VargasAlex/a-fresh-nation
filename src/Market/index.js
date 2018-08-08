@@ -1,25 +1,24 @@
 import React, {Component} from "react";
 import "./style.css"
-import { Button } from 'react-bootstrap';
 
 class Market extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zip: '',
-      marketname: '',
+      zip_code: '',
       results: [],
+      marketInfo: {},
     }
   }
 
 
   onFormChange(evt) {
     const domElement = evt.target.value;
-    this.setState({zip: domElement});
+    this.setState({zip_code: domElement});
   }
 
   onSubmitClick(evt) {
-    fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip}`)
+    fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip_code}`)
     .then(response => response.json())
       .then(marketname => {
         console.log(marketname.results)
@@ -29,8 +28,24 @@ class Market extends Component {
       });
   }
 
+  onMarketClick(evt) {
+    const market = evt.target.getAttribute('id')
+    console.log(market)
+    fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market}`)
+    .then(response => response.json())
+      .then(marketInfo => {
+        this.setState({
+          marketInfo: marketInfo.marketdetails
+        })
+      })
+  }
+
   render () {
-    return (
+    let schedule = '';
+    if (this.state.marketInfo.Schedule) {
+      schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
+    }
+     return (
       <div className="Market">
         <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
         <form onChange={evt => this.onFormChange(evt)}>
@@ -40,10 +55,16 @@ class Market extends Component {
           </div>
           {this.state.results.map(result => {
             return (
-              <p key={result.id}>{result.marketname.substring(4)}</p>
+              <p key={result.id} id={result.id} onClick={evt => this.onMarketClick(evt)}>
+                 {result.marketname.substring(4)}
+              </p>
             )
           })}
         </form>
+        <p>{this.state.marketInfo.Address}</p>
+        <p>{this.state.marketInfo.GoogleLink}</p>
+        <p>{this.state.marketInfo.Products}</p>
+        <p>{schedule}</p>
       </div>
     )
   }
