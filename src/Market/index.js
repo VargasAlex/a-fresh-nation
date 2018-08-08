@@ -4,13 +4,13 @@ import "./style.css"
 class Market extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       zip_code: '',
       results: [],
-      marketInfo: {},
+      marketInfo: {}
     }
   }
-
 
   onFormChange(evt) {
     const domElement = evt.target.value;
@@ -53,18 +53,18 @@ class Market extends Component {
             <input className="form-control input-small" name="zip" placeholder="Insert zip code here..." value={this.state.zip} />
             <button type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</button>
           </div>
+           <p>{this.state.marketInfo.Address}</p>
+           <p>{this.state.marketInfo.GoogleLink}</p>
+           <p>{this.state.marketInfo.Products}</p>
+           <p>{schedule}</p>
           {this.state.results.map(result => {
             return (
               <p key={result.id} id={result.id} onClick={evt => this.onMarketClick(evt)}>
-                 {result.marketname.substring(4)}
+                {result.marketname.substring(4)}
               </p>
             )
           })}
         </form>
-        <p>{this.state.marketInfo.Address}</p>
-        <p>{this.state.marketInfo.GoogleLink}</p>
-        <p>{this.state.marketInfo.Products}</p>
-        <p>{schedule}</p>
       </div>
     )
   }
