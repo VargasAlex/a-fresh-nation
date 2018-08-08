@@ -19,11 +19,11 @@
 }
 
 button {
-  border-radius: 0.25rem;
+  border-radius: 0.25rem !important;
   background:#1AAB8A;
   color:#fff;
   border: none;
-  position:relative;
+  position: relative;
   height: 38px;
   font-size:1.6em;
   padding:0 2em;
