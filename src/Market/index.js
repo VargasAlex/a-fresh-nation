@@ -35,7 +35,7 @@ class Market extends Component {
         <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
         <form onChange={evt => this.onFormChange(evt)}>
           <div className='form-inline'>
-            <input className="form-control input-small" name="zip" value={this.state.zip} />
+            <input className="form-control input-small" name="zip" placeholder="Insert zip code here..." value={this.state.zip} />
             <button type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</button>
           </div>
           {this.state.results.map(result => {
