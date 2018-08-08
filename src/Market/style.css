@@ -12,6 +12,7 @@
 .Market .form-inline {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .Market .form-inline .form-control {
