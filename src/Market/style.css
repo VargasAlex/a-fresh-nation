@@ -3,6 +3,8 @@
 .Market {
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .Market .title {
@@ -12,7 +14,6 @@
 .Market .form-inline {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
 }
 
 .Market .form-inline .form-control {
@@ -59,4 +60,18 @@ button:after{
 button:hover:before,button:hover:after{
   width:100%;
   transition:500ms ease all;
+}
+
+.Market .market-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border-radius: 25px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 1px solid #efefef;
+  height: 50px;
+  width: 400px;
+  margin: 10px;
 }

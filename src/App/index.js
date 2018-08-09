@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Market from '../Market'
-
+import Market from '../Market';
 
 class App extends Component {
   render() {
