@@ -1,5 +1,9 @@
 import React, {Component} from "react";
 import "./style.css"
+import Map from "../Map";
+
+
+const GEOCODE_API_KEY = process.env.REACT_APP_GEOCODE_API_KEY;
 
 class Market extends Component {
   constructor(props, context) {
@@ -20,12 +24,40 @@ class Market extends Component {
   onSubmitClick(evt) {
     fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip_code}`)
     .then(response => response.json())
-      .then(marketname => {
-        console.log(marketname.results)
-        this.setState({
-          results: marketname.results
+      .then(response => {
+        console.log(response.results)
+        let marketDetailsPromises = [];
+        response.results.forEach(market => {
+          let promise = fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market.id}`)
+            .then(response => response.json())
+          marketDetailsPromises.push(promise)
         });
-      });
+        this.setState({
+          results: response.results
+        });
+        return Promise.all(
+           marketDetailsPromises
+        )
+      })
+        .then(markets => {
+          console.log(markets)
+          let marketAddress = [];
+          markets.forEach(market => {
+            console.log('single', market)
+            let addressPromise = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${market.marketdetails.Address}&key=${GEOCODE_API_KEY}`)
+              .then(response => response.json())
+            marketAddress.push(addressPromise)
+          });
+          return Promise.all(
+            marketAddress
+          )
+        })
+        .then(marketAddress => {
+          console.log(marketAddress)
+          this.setState({
+            marketAddress: marketAddress.Address
+          })
+        })
   }
 
   onMarketClick(evt) {
@@ -65,6 +97,7 @@ class Market extends Component {
              </div>
            )
          })}
+         <Map />
       </div>
     )
   }
