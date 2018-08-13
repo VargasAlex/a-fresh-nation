@@ -1,14 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy');
 
+html {
+  background-color: #808080;
+}
+
 .Market {
-  text-align: center;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
+  background-color: #808080;
+  margin-top: 10px;
 }
 
 .Market .title {
   font-family: 'Luckiest Guy', cursive;
+  text-align: center;
 }
 
 .Market .form-inline {
@@ -19,6 +22,7 @@
 .Market .form-inline .form-control {
   margin-right: 5px;
 }
+
 
 button {
   border-radius: 0.25rem !important;
