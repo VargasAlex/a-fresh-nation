@@ -43,36 +43,49 @@ class Market extends Component {
       })
       .then(markets => {
         console.log('markets',markets)
-        let marketAddress = [];
-        markets.forEach(market => {
-          console.log('single', market)
-          let addressPromise = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${market.marketdetails.Address}&key=${GEOCODE_API_KEY}`)
-            .then(response => response.json())
-            .then(data => Object.assign({}, data, market))
-          marketAddress.push(addressPromise)
-        });
-        return Promise.all(
-          marketAddress
-        )
-      })
-      .then(marketAddress => {
-        console.log(marketAddress)
-        let coordinates= marketAddress.map(apiData => {
-          let coordinate = {};
-          if (apiData.results.length === 0 ) {return null}
-          coordinate.lat = apiData.results[0].geometry.lat
-          marketAddress;
-          coordinate.lng = apiData.results[0].geometry.lng
-          coordinate.id = apiData.id
-          coordinate.marketname = apiData.marketname
-          return coordinate
-        })
-        coordinates = coordinates.filter(coordinate => {
-          return coordinate !== null
+        const urls = markets
+        const data = urls.map(url => {
+          const link = new URL(url.marketdetails.GoogleLink)
+          const param = link.searchParams.get('q');
+          const coords = param.split(', ')
+          const lat = coords[0];
+          const long = coords[1].split(' ')[0];
+          let coordinates = [lat, long].map(Number);
+          console.log(coordinates)
+          return coordinates
         })
         this.setState({
-          coordinates: coordinates
+          data: data
         })
+          // console.log('single', market)
+          // let addressPromise = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${market.marketdetails.Address}&key=${GEOCODE_API_KEY}`)
+          //   .then(response => response.json())
+          //   .then(data => Object.assign({}, data, market))
+          // marketAddress.push(addressPromise)
+      //   });
+      //   console.log(data)
+      //   return Promise.all(
+      //     marketAddress
+      //   )
+      // })
+      // .then(marketAddress => {
+      //   console.log(marketAddress)
+      //   let coordinates= marketAddress.map(apiData => {
+      //     let coordinate = {};
+      //     if (apiData.results.length === 0 ) {return null}
+      //     coordinate.lat = apiData.results[0].geometry.lat
+      //     marketAddress;
+      //     coordinate.lng = apiData.results[0].geometry.lng
+      //     coordinate.id = apiData.id
+      //     coordinate.marketname = apiData.marketname
+      //     return coordinate
+      //   })
+      //   coordinates = coordinates.filter(coordinate => {
+      //     return coordinate !== null
+      //   })
+      //   this.setState({
+      //     coordinates: coordinates
+      //   })
       })
   }
 
@@ -93,8 +106,8 @@ class Market extends Component {
     if (this.state.marketInfo.Schedule) {
       schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
     }
-    let marketCoords = this.state.coordinates
-    let marketData = this.state.results
+    let marketCoords = this.state.data;
+    let marketData = this.state.results;
     console.log(marketData)
     console.log(marketCoords)
     return (
@@ -110,13 +123,6 @@ class Market extends Component {
         <p>{this.state.marketInfo.GoogleLink}</p>
         <p>{this.state.marketInfo.Products}</p>
         <p>{schedule}</p>
-        {/* {this.state.results.map(result => {
-          return (
-            <div className="market-name" key={result.id} id={result.id} onClick={evt => this.onMarketClick(evt)}>
-              {result.marketname.substring(4)}
-            </div>
-          )
-        })} */}
         <Map
           marketCoords = {this.state}
           marketData = {this.state}
