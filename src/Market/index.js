@@ -31,6 +31,7 @@ class Market extends Component {
         response.results.forEach(market => {
           let promise = fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market.id}`)
             .then(response => response.json())
+            .then(data => Object.assign({}, data, market))
           marketDetailsPromises.push(promise)
         });
         this.setState({
@@ -41,12 +42,13 @@ class Market extends Component {
         )
       })
       .then(markets => {
-        console.log(markets)
+        console.log('markets',markets)
         let marketAddress = [];
         markets.forEach(market => {
           console.log('single', market)
           let addressPromise = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${market.marketdetails.Address}&key=${GEOCODE_API_KEY}`)
             .then(response => response.json())
+            .then(data => Object.assign({}, data, market))
           marketAddress.push(addressPromise)
         });
         return Promise.all(
@@ -59,7 +61,10 @@ class Market extends Component {
           let coordinate = {};
           if (apiData.results.length === 0 ) {return null}
           coordinate.lat = apiData.results[0].geometry.lat
+          marketAddress;
           coordinate.lng = apiData.results[0].geometry.lng
+          coordinate.id = apiData.id
+          coordinate.marketname = apiData.marketname
           return coordinate
         })
         coordinates = coordinates.filter(coordinate => {
@@ -89,6 +94,8 @@ class Market extends Component {
       schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
     }
     let marketCoords = this.state.coordinates
+    let marketData = this.state.results
+    console.log(marketData)
     console.log(marketCoords)
     return (
       <div className="Market">
@@ -103,19 +110,16 @@ class Market extends Component {
         <p>{this.state.marketInfo.GoogleLink}</p>
         <p>{this.state.marketInfo.Products}</p>
         <p>{schedule}</p>
-        {this.state.results.map(result => {
+        {/* {this.state.results.map(result => {
           return (
             <div className="market-name" key={result.id} id={result.id} onClick={evt => this.onMarketClick(evt)}>
               {result.marketname.substring(4)}
             </div>
           )
-        })}
-        {this.state.coordinates.map(coordinate => {
-          //  console.log(coordinate.lat)
-          //  console.log(coordinate.lng)
-        })}
+        })} */}
         <Map
           marketCoords = {this.state}
+          marketData = {this.state}
         />
       </div>
     )
