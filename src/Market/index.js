@@ -89,9 +89,11 @@ class Market extends Component {
         <p>{this.state.marketInfo.GoogleLink}</p>
         <p>{this.state.marketInfo.Products}</p>
         <p>{schedule}</p> */}
+        <div data-tap-disabled="true">
         <Map
-          marketCoords = {this.state} data-tap-disabled="true"
+          marketCoords = {this.state}
         />
+        </div>
       </div>
     )
   }
