@@ -101,18 +101,18 @@ class Market extends Component {
   }
 
   render() {
-    let schedule = '';
-    if (this.state.marketInfo.Schedule) {
-      schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
-    }
+    // let schedule = '';
+    // if (this.state.marketInfo.Schedule) {
+    //   schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
+    // }
     let marketCoords = this.state;
     let marketData = this.state.results;
     // console.log(marketData)
-    console.log(marketCoords)
+    // console.log(marketCoords)
     return (
       <div className="Market">
         <form onChange={evt => this.onFormChange(evt)}>
-          <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
+          <h1 className="title"> A Fresh Nation! </h1>
           <div className='form-inline'>
             <input className="form-control input-small" name="zip" placeholder="Insert zip code here..." value={this.state.zip} />
             <button className="submit" type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</button>
