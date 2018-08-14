@@ -90,7 +90,7 @@ class Market extends Component {
         <p>{this.state.marketInfo.Products}</p>
         <p>{schedule}</p> */}
         <Map
-          marketCoords = {this.state}
+          marketCoords = {this.state} data-tap-disabled="true"
         />
       </div>
     )
