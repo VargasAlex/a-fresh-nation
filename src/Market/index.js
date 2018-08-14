@@ -3,7 +3,7 @@ import "./style.css"
 import Map from "../Map";
 
 
-const GEOCODE_API_KEY = process.env.REACT_APP_GEOCODE_API_KEY;
+// const GEOCODE_API_KEY = process.env.REACT_APP_GEOCODE_API_KEY;
 
 class Market extends Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Market extends Component {
       zip_code: '',
       results: [],
       marketInfo: {},
-      coordinates: []
     }
   }
 
@@ -26,7 +25,7 @@ class Market extends Component {
     fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip_code}`)
       .then(response => response.json())
       .then(response => {
-        console.log(response.results)
+        // console.log(response.results)
         let marketDetailsPromises = [];
         response.results.forEach(market => {
           let promise = fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market.id}`)
@@ -42,7 +41,7 @@ class Market extends Component {
         )
       })
       .then(markets => {
-        console.log('markets',markets)
+        // console.log('markets',markets)
         const urls = markets
         const data = urls.map(url => {
           const link = new URL(url.marketdetails.GoogleLink)
@@ -51,7 +50,7 @@ class Market extends Component {
           const lat = coords[0];
           const long = coords[1].split(' ')[0];
           let coordinates = [lat, long].map(Number);
-          console.log(coordinates)
+          // console.log(coordinates)
           return coordinates
         })
         this.setState({
@@ -91,7 +90,7 @@ class Market extends Component {
 
   onMarketClick(evt) {
     const market = evt.target.getAttribute('id')
-    console.log(market)
+    // console.log(market)
     fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market}`)
       .then(response => response.json())
       .then(marketInfo => {
@@ -106,23 +105,23 @@ class Market extends Component {
     if (this.state.marketInfo.Schedule) {
       schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
     }
-    let marketCoords = this.state.data;
+    let marketCoords = this.state;
     let marketData = this.state.results;
-    console.log(marketData)
+    // console.log(marketData)
     console.log(marketCoords)
     return (
       <div className="Market">
-        <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
         <form onChange={evt => this.onFormChange(evt)}>
+          <h1 className="title">🍎 🍌 🍓 A Fresh Nation! 🥦 🥕 🥑</h1>
           <div className='form-inline'>
             <input className="form-control input-small" name="zip" placeholder="Insert zip code here..." value={this.state.zip} />
             <button className="submit" type="button" onClick={evt => this.onSubmitClick(evt)}>Submit</button>
           </div>
         </form>
-        <p>{this.state.marketInfo.Address}</p>
+        {/* <p>{this.state.marketInfo.Address}</p>
         <p>{this.state.marketInfo.GoogleLink}</p>
         <p>{this.state.marketInfo.Products}</p>
-        <p>{schedule}</p>
+        <p>{schedule}</p> */}
         <Map
           marketCoords = {this.state}
           marketData = {this.state}

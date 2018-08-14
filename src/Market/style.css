@@ -1,17 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Luckiest+Guy');
 
-html {
-  background-color: #808080;
-}
 
+body {
+   background: url('https://img1.mashed.com/img/gallery/7-vegetables-you-should-be-eating-and-7-you-shouldnt/intro-1499279662.jpg')
+}
 .Market {
-  background-color: #808080;
   margin-top: 10px;
 }
 
 .Market .title {
   font-family: 'Luckiest Guy', cursive;
   text-align: center;
+  color: white;
+  text-shadow: 4px 4px green
 }
 
 .Market .form-inline {
@@ -22,7 +23,6 @@ html {
 .Market .form-inline .form-control {
   margin-right: 5px;
 }
-
 
 button {
   border-radius: 0.25rem !important;

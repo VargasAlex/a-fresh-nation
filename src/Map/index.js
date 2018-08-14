@@ -22,28 +22,22 @@ class Map extends Component {
 
   _renderMarker(markets, i) {
     return (
-      <Marker key={i} longitude={markets[1]} latitude={Number(markets[0])} >
-         <div className="station"><span>Markets</span></div>
+      <Marker key={i} longitude={markets[1]} latitude={markets[0]} >
+         <div className="station"><span>hi</span></div>
       </Marker>
     );
   }
 
 
   render() {
-
     const markets = this.props.marketCoords.data;
-    const marketNames = this.props.marketData.results;
-    console.log('this is the market',markets)
-    console.log(marketNames)
-    console.log(this.props)
     return (
       <ReactMapGL
         {...this.state.viewport}
-        mapStyle="mapbox://styles/mapbox/light-v9"
+        mapStyle="mapbox://styles/mapbox/streets-v9"
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={(viewport) => this.setState({ viewport })}
       >
-
         {markets ? markets.map(this._renderMarker) : null}
       </ ReactMapGL>
     );
