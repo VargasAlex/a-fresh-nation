@@ -56,35 +56,6 @@ class Market extends Component {
         this.setState({
           data: data
         })
-          // console.log('single', market)
-          // let addressPromise = fetch(`https://api.opencagedata.com/geocode/v1/json?q=${market.marketdetails.Address}&key=${GEOCODE_API_KEY}`)
-          //   .then(response => response.json())
-          //   .then(data => Object.assign({}, data, market))
-          // marketAddress.push(addressPromise)
-      //   });
-      //   console.log(data)
-      //   return Promise.all(
-      //     marketAddress
-      //   )
-      // })
-      // .then(marketAddress => {
-      //   console.log(marketAddress)
-      //   let coordinates= marketAddress.map(apiData => {
-      //     let coordinate = {};
-      //     if (apiData.results.length === 0 ) {return null}
-      //     coordinate.lat = apiData.results[0].geometry.lat
-      //     marketAddress;
-      //     coordinate.lng = apiData.results[0].geometry.lng
-      //     coordinate.id = apiData.id
-      //     coordinate.marketname = apiData.marketname
-      //     return coordinate
-      //   })
-      //   coordinates = coordinates.filter(coordinate => {
-      //     return coordinate !== null
-      //   })
-      //   this.setState({
-      //     coordinates: coordinates
-      //   })
       })
   }
 
@@ -105,10 +76,6 @@ class Market extends Component {
     // if (this.state.marketInfo.Schedule) {
     //   schedule = this.state.marketInfo.Schedule.substring(0, this.state.marketInfo.Schedule.length - 16)
     // }
-    let marketCoords = this.state;
-    let marketData = this.state.results;
-    // console.log(marketData)
-    // console.log(marketCoords)
     return (
       <div className="Market">
         <form onChange={evt => this.onFormChange(evt)}>
@@ -124,7 +91,6 @@ class Market extends Component {
         <p>{schedule}</p> */}
         <Map
           marketCoords = {this.state}
-          marketData = {this.state}
         />
       </div>
     )

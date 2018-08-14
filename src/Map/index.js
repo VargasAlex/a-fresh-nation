@@ -49,10 +49,6 @@ class Map extends Component {
 
   render() {
     const markets = this.props.marketCoords.data;
-    this.props.marketCoords.results.map(name => {
-      let names = name.marketname
-      console.log(names)
-    })
     return (
       <ReactMapGL
         {...this.state.viewport}
