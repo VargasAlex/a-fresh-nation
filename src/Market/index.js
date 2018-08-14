@@ -22,13 +22,13 @@ class Market extends Component {
   }
 
   onSubmitClick(evt) {
-    fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip_code}`)
+    fetch(`https://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=${this.state.zip_code}`)
       .then(response => response.json())
       .then(response => {
         // console.log(response.results)
         let marketDetailsPromises = [];
         response.results.forEach(market => {
-          let promise = fetch(`http://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market.id}`)
+          let promise = fetch(`https://search.ams.usda.gov/farmersmarkets/v1/data.svc/mktDetail?id=${market.id}`)
             .then(response => response.json())
             .then(data => Object.assign({}, data, market))
           marketDetailsPromises.push(promise)
