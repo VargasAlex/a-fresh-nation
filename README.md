@@ -1,6 +1,6 @@
 # A-Fresh-Nation
 
-This website uses the USDA National Farmers Market Directory API to retrieve a markets address, schedule, and products (if available) based on a users zip code. When a user enters there zip code into the search bar all the farmers market in that area will populate the globe. To get more information about a specific market, click on that market.
+This website uses the USDA National Farmers Market Directory API to retrieve a markets location and name based on a users zip code input. When a user enters a zip code into the input bar, all the farmers market in that area will populate the map as a red marker. A hover over one of the markers will display the markets name.
 
 ## Wireframes
 
@@ -15,6 +15,7 @@ This website uses the USDA National Farmers Market Directory API to retrieve a m
 
 ## Technologies used
 ##### -react
-##### -react-simple-maps
+##### -react-map-gl
 ##### -USDA farmer's market API (https://search.ams.usda.gov/farmersmarkets/v1/svcdesc.html)
+
 
