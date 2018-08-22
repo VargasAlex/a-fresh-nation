@@ -6,7 +6,7 @@ const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 class Map extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state ={
         viewport: {
@@ -36,16 +36,17 @@ class Map extends Component {
         width: this.props.width || window.innerWidth,
         height: this.props.height || window.innerHeight
       }
-    });
+    })
   };
 
   _renderMarker(markets, i) {
     return (
-      <Marker key={i} longitude={markets[1]} latitude={markets[0]} >
+      <Marker key={i} longitude={markets[1]} latitude={markets[0]}>
         <div className="station"><span>{this.props.marketCoords.results[i].marketname.substring(4)}</span></div>
       </Marker>
     );
   }
+
 
   render() {
     const markets = this.props.marketCoords.data;
